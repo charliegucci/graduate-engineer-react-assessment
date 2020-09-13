@@ -4,6 +4,7 @@ import getMovies from '../helpers/getLocalMovieList';
 import moment from 'moment';
 
 const RecordMovieForm = ({ setMovieList }) => {
+  // sets date watched to current date using moment
   const [values, setValues] = useState({
     dateWatched: moment().format('YYYY-MM-DD')
   });
@@ -16,11 +17,12 @@ const RecordMovieForm = ({ setMovieList }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!movieTitle || !dateWatched || !rating) {
-      alert('Sorry please enter all fields');
+      return alert('Sorry please enter all fields');
     }
     let localStorageMovieList = getMovies();
     let newMovie = values;
     const searchTitle = movieTitle.split(' ').join('+');
+    // hit api endpoint
     const request = await fetch(
       `http://www.omdbapi.com/?t=${searchTitle}&apikey=3b7a00b`
     );
@@ -35,9 +37,9 @@ const RecordMovieForm = ({ setMovieList }) => {
   };
 
   return (
-    <Form onClick={(e) => console.log(values)}>
+    <Form>
       <div className='form-group'>
-        <label className='text-muted'>Movies</label>
+        <label className='text-muted'>Movie:</label>
         <Input
           name='movieTitle'
           type='text'
@@ -46,7 +48,7 @@ const RecordMovieForm = ({ setMovieList }) => {
           value={movieTitle}></Input>
       </div>
       <div className='form-group'>
-        <label className='text-muted'>Date Watched</label>
+        <label className='text-muted'>Date Watched:</label>
         <br />
         <Input
           type='date'
@@ -56,7 +58,7 @@ const RecordMovieForm = ({ setMovieList }) => {
           value={dateWatched}></Input>
       </div>
       <div className='form-group'>
-        <label className='text-muted'>Rating</label>
+        <label className='text-muted'>Rating:</label>
         <Input
           type='select'
           placeholder='Rating'

@@ -6,7 +6,6 @@ import Stats from './Stats';
 
 const LandingPage = () => {
   const [movieList, setMovieList] = useState(getMovies());
-
   return (
     <div className='container'>
       <div className='row'>
@@ -22,7 +21,9 @@ const LandingPage = () => {
           <div className='alert alert-success' role='alert'>
             <RecordMovieForm setMovieList={setMovieList} />
           </div>
+          <h1>Movie List:</h1>
           <MovieWatchedList movieList={movieList} />
+          <h1>Stats:</h1>
           <Stats movieList={movieList} />
         </div>
       </div>
